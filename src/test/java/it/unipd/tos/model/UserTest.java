@@ -32,11 +32,14 @@ public class UserTest {
 	public void getAgeTest() {
 		assertEquals(21, user.getAge());
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void getNameTest2() {
+		new User("", "Pase",21);
+	}
 
     @Test(expected = IllegalArgumentException.class)
     public void DataNonValidaTest() {
         new User("Emanuele","Pase",-21);
     }
-
-
 }

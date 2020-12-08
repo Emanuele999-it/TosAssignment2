@@ -15,7 +15,7 @@ public class MenuItem {
             throw new IllegalArgumentException("Elemento nullo");
         }
         
-        if(name == null) {
+        if(name.isEmpty()) {
             throw new IllegalArgumentException("Nome non valido");
         }
         
