@@ -10,6 +10,9 @@ import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
 import it.unipd.tos.business.TotalBillDay;
 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,9 @@ public class TotalTest {
 	 private Total prova; 
 	 private User user;
 	
+	 @Rule
+	 public ExpectedException Expected = ExpectedException.none();
+	 
 	 @Before
 	  public void setup() {
 	  user = new User("Emanuele","Pase",21);
@@ -43,12 +49,12 @@ public class TotalTest {
 	  assertEquals(8.25, prova.getOrderPrice(items,user), 0.0);
 	 } 
 	 
-	 
-	 @Test(expected=TakeAwayBillException.class)
-	  public void TotaleConListaVuotaTest() {
-	   List<MenuItem> Item=null;
-	   prova.getOrderPrice(Item, user);
-	  }
+
+	 @Test
+	  public void TotaleConListaVuotaTest() throws TakeAwayBillException {
+	     Expected.expect(TakeAwayBillException.class);
+         prova.getOrderPrice(null, user);
+	    }
 	 
 	 @Test
 	 public void TotaleConSconto50suGelatoCostoMinTest() {
@@ -66,6 +72,14 @@ public class TotalTest {
         prova.getOrderPrice(items, user);
        }
 
+	 @Test
+	  public void PiuDi6Gelati() {
+      for(int i=0; i<8; i++) {
+       items.add(new MenuItem( ItemType.Gelato,"Coppa Nafta",3.00));
+       }
+      assertEquals(24, prova.getOrderPrice(items,user), 0.0);
+      }
+       
 	 @Test
 	  public void CommissioneSeImportoInferioreA10EuroTest() {
 	   items.add(new MenuItem( ItemType.Gelato, "Banana Split",2.00));
