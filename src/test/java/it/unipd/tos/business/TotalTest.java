@@ -37,7 +37,7 @@ public class TotalTest {
 	  items.add(new MenuItem( ItemType.Bevanda, "Cola", 2.50));
 	  items.add(new MenuItem( ItemType.Budino, "Biancaneve", 3.25));
 
-	  assertEquals(7.75, prova.getOrderPrice(items,user), 0.0);
+	  assertEquals(8.25, prova.getOrderPrice(items,user), 0.0);
 	 } 
 	 
 	 
@@ -52,17 +52,23 @@ public class TotalTest {
 		 for (int i=0; i<5; i++) {
 			 items.add(new MenuItem(ItemType.Bevanda,"Cola",2.50));
 		 }
-		 assertEquals(12.5,prova.getOrderPrice(items,user),0.0);
+		 assertEquals(13,prova.getOrderPrice(items,user),0.0);
 	 }
 	
 	 @Test(expected=TakeAwayBillException.class)
-	  public void oltreTrentaElementiPerOrdineTest() {
+	  public void OltreTrentaElementiPerOrdineTest() {
        for(int i=0; i<35; i++) {
         items.add(new MenuItem( ItemType.Gelato, "Coppa Nafta",3.00));
         }
         prova.getOrderPrice(items, user);
        }
 
+	 @Test
+	  public void CommissioneSeImportoInferioreA10EuroTest() {
+	   items.add(new MenuItem( ItemType.Gelato, "Banana Split",2.00));
+	   items.add(new MenuItem( ItemType.Bevanda, "Cola",2.50));
+	   assertEquals(5.00, prova.getOrderPrice(items,user), 0.0);
+	  }
 	 
 } 
 	
