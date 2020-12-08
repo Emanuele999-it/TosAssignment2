@@ -50,10 +50,9 @@ public class TotalTest {
 	 } 
 	 
 
-	 @Test
+	 @Test(expected=TakeAwayBillException.class)
 	  public void TotaleConListaVuotaTest() throws TakeAwayBillException {
-	     Expected.expect(TakeAwayBillException.class);
-         prova.getOrderPrice(null, user);
+         prova.getOrderPrice(items, user);
 	    }
 	 
 	 @Test
