@@ -11,6 +11,10 @@ local.properties
 .loadpath
 .recommenders
 .classpath
+<<<<<<< HEAD
+=======
+.project
+>>>>>>> release/v.1.0
 
 # External tool builders
 .externalToolBuilders/
