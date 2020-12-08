@@ -8,11 +8,14 @@ import it.unipd.tos.business.exception.TakeAwayBillException;
 import it.unipd.tos.model.ItemType;
 import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
+import it.unipd.tos.business.TotalBillDay;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+
+import java.time.LocalTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +60,7 @@ public class TotalTest {
 	
 	 @Test(expected=TakeAwayBillException.class)
 	  public void OltreTrentaElementiPerOrdineTest() {
-       for(int i=0; i<35; i++) {
+       for(int i=0; i<31; i++) {
         items.add(new MenuItem( ItemType.Gelato, "Coppa Nafta",3.00));
         }
         prova.getOrderPrice(items, user);
@@ -78,6 +81,26 @@ public class TotalTest {
 		 }
 	   assertEquals(47.25, prova.getOrderPrice(items,user), 0.0);
 	  }
-	 
-} 
+	
+     @Test
+      public void OrdiniGratisTest() throws TakeAwayBillException {
+       User user = null;
+       List<TotalBillDay> orders = new ArrayList<TotalBillDay>();
+       items.add(new MenuItem(ItemType.Gelato,"Banana Split",5.00));
+       for(int i=6; i<=18; i++) {
+         user = new User("Emanuele","Pase",i);
+         orders.add(new TotalBillDay(items,user,LocalTime.of(18, 20, 45),prova.getOrderPrice(items, user)));
+       }
+       List<TotalBillDay> free = prova.FreeBills(orders);
+       boolean b = false;
+       if(free.size()<=10) {
+       b = true;
+       }	
+       assertEquals(true,b);
+       for(TotalBillDay i: free) {
+        assertEquals(0.00,i.getPrice(),0.0);
+       }
+      }
+}
+	  
 	

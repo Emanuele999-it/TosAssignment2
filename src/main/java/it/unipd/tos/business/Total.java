@@ -11,6 +11,10 @@ import it.unipd.tos.model.MenuItem;
 import it.unipd.tos.model.User;
 import it.unipd.tos.business.exception.TakeAwayBillException;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+
 public class Total implements TakeAwayBill {
     
 public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBillException {
@@ -45,6 +49,7 @@ public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBill
                total = total - minimo*(1/2);
             }
             
+            
         }
         if(total<10) {
             total += 0.5;
@@ -56,4 +61,24 @@ public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBill
         
         return total;     
     }
+    public List < TotalBillDay > FreeBills(List < TotalBillDay > bills) {
+
+    List < TotalBillDay > Free = new ArrayList < TotalBillDay > ();
+
+    for (TotalBillDay i: bills) {
+        if (i.getUser().getAge() < 18 && (!Free.contains(i)) && Free.size() < 10 && i.getTime() >= 64800 && i.getTime() <= 68400) {
+            Random rand = new Random();
+            if (rand.nextBoolean()) {
+                Free.add(i);
+            }
+        }
+    }
+    for (TotalBillDay i: Free) {
+        i.changePrice(0.00);
+    }
+    return Free;
+}
+
+
+
 }

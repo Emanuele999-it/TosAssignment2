@@ -9,24 +9,34 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
 public class MenuItemTest {
 
     private MenuItem Bevanda;
     private MenuItem Gelato;
 
+    @Rule
+    public ExpectedException Expected = ExpectedException.none();
+    
     @Before
     public void setup() {
         Gelato = new MenuItem( ItemType.Gelato, "Banana Split",3.00);    
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void TipologiaElementoNulloTest() {
-        new MenuItem(null, "The", 3.00);
+    	Expected.expect(IllegalArgumentException.class);
+    	Expected.expectMessage("Elemento nullo");
+    	new MenuItem(null,"The", 3.00);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void NomeElementoNulloTest() {
-        new MenuItem(ItemType.Bevanda,null, 2.50);
+    	Expected.expect(IllegalArgumentException.class);
+    	Expected.expectMessage("Nome non valido");
+        new MenuItem(ItemType.Bevanda,"", 2.50);
     }
     
     @Test

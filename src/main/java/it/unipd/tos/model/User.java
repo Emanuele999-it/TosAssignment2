@@ -12,11 +12,12 @@ public class User {
             String Nome, 
             String Cognome, 
             int Age) {
-        /**if(Nome == null) {
+        
+        if(Nome.isEmpty()) {
             throw new IllegalArgumentException("Nome non valido");
-        }*/
+        }
         if(Age <= 0) {
-            throw new IllegalArgumentException("Data non valida");
+            throw new IllegalArgumentException("Eta' non valida");
         }
 
         this.Nome = Nome;
