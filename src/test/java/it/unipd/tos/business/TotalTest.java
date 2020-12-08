@@ -46,5 +46,14 @@ public class TotalTest {
 	   List<MenuItem> Item=null;
 	   prova.getOrderPrice(Item, user);
 	  }
+	 
+	 @Test
+	 public void TotaleConSconto50suGelatoCostoMinTest() {
+		 for (int i=0; i<5; i++) {
+			 items.add(new MenuItem(ItemType.Bevanda,"Cola",2.50));
+		 }
+		 assertEquals(12.5,prova.getOrderPrice(items,user),0.0);
+	 }
+	 
 } 
 	
