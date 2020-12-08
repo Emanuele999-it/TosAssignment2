@@ -54,6 +54,15 @@ public class TotalTest {
 		 }
 		 assertEquals(12.5,prova.getOrderPrice(items,user),0.0);
 	 }
+	
+	 @Test(expected=TakeAwayBillException.class)
+	  public void oltreTrentaElementiPerOrdineTest() {
+       for(int i=0; i<35; i++) {
+        items.add(new MenuItem( ItemType.Gelato, "Coppa Nafta",3.00));
+        }
+        prova.getOrderPrice(items, user);
+       }
+
 	 
 } 
 	

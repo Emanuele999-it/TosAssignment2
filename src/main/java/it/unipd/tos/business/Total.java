@@ -25,6 +25,10 @@ public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBill
         if (items.isEmpty()) {
             throw new TakeAwayBillException("Lista vuota");
         }
+        
+        if(items.size() > 30) {
+            throw new TakeAwayBillException("Troppi ordini");
+        }
 
         for (MenuItem i: items) { 
             total += i.getPrice();
