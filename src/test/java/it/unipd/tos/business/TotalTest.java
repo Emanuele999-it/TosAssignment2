@@ -52,7 +52,7 @@ public class TotalTest {
 		 for (int i=0; i<5; i++) {
 			 items.add(new MenuItem(ItemType.Bevanda,"Cola",2.50));
 		 }
-		 assertEquals(13,prova.getOrderPrice(items,user),0.0);
+		 assertEquals(12.5,prova.getOrderPrice(items,user),0.0);
 	 }
 	
 	 @Test(expected=TakeAwayBillException.class)
@@ -68,6 +68,15 @@ public class TotalTest {
 	   items.add(new MenuItem( ItemType.Gelato, "Banana Split",2.00));
 	   items.add(new MenuItem( ItemType.Bevanda, "Cola",2.50));
 	   assertEquals(5.00, prova.getOrderPrice(items,user), 0.0);
+	  }
+	 
+	 @Test
+	  public void ScontoSeCostoOrdineE50PiuEuro() {
+		 for(int i=0;i<21;i++)
+         {
+		   items.add(new MenuItem( ItemType.Bevanda, "Cola",2.50));
+		 }
+	   assertEquals(47.25, prova.getOrderPrice(items,user), 0.0);
 	  }
 	 
 } 

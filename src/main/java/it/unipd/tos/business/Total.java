@@ -30,10 +30,6 @@ public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBill
             throw new TakeAwayBillException("Troppi ordini");
         }
         
-        if(total<10) {
-            total += 0.5;
-        }
-
         for (MenuItem i: items) { 
             total += i.getPrice();
             double actual=i.getPrice();
@@ -50,6 +46,14 @@ public double getOrderPrice(List<MenuItem> items, User user) throws TakeAwayBill
             }
             
         }
+        if(total<10) {
+            total += 0.5;
+        }
+        
+        if(total>50) {
+            total=total*0.9;
+        }
+        
         return total;     
     }
 }
