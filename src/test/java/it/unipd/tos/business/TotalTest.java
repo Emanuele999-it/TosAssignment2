@@ -52,7 +52,7 @@ public class TotalTest {
 
 	 @Test(expected=TakeAwayBillException.class)
 	  public void TotaleConListaVuotaTest() throws TakeAwayBillException {
-         prova.getOrderPrice(items, user);
+         prova.getOrderPrice(null, user);
 	    }
 	 
 	 @Test
